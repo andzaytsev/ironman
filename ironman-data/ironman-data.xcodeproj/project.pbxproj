@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5504C98219F25A1C00939EC3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5504C98119F25A1C00939EC3 /* main.cpp */; };
+		5504C98C19F25D5200939EC3 /* myo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5504C98B19F25D5200939EC3 /* myo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		5504C97E19F25A1C00939EC3 /* ironman-data */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ironman-data"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5504C98119F25A1C00939EC3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		5504C98B19F25D5200939EC3 /* myo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = myo.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5504C98C19F25D5200939EC3 /* myo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +45,7 @@
 			isa = PBXGroup;
 			children = (
 				5504C98019F25A1C00939EC3 /* ironman-data */,
+				5504C98A19F25D3300939EC3 /* Frameworks */,
 				5504C97F19F25A1C00939EC3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,6 +63,15 @@
 			children = (
 				5504C98119F25A1C00939EC3 /* main.cpp */,
 			);
+			path = "ironman-data";
+			sourceTree = "<group>";
+		};
+		5504C98A19F25D3300939EC3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5504C98B19F25D5200939EC3 /* myo.framework */,
+			);
+			name = Frameworks;
 			path = "ironman-data";
 			sourceTree = "<group>";
 		};
@@ -191,6 +204,10 @@
 		5504C98819F25A1C00939EC3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/andrey/code/ironman/ironman-data/ironman-data",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -199,6 +216,10 @@
 		5504C98919F25A1C00939EC3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/andrey/code/ironman/ironman-data/ironman-data",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
