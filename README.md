@@ -13,7 +13,7 @@ To compile the project just run `make`. It will create a binary called `iman-dat
 
 About
 =====
-This project was started at BoilerMake hackathon in Fall 2014.
+This project was started at the BoilerMake hackathon in Fall 2014.
 
 Authors
 =======
