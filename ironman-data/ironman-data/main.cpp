@@ -190,19 +190,19 @@ public:
         //if(ch == 'o') {
             if (roll_w1 != roll_w1_old) {
                 cout<<"L";
-                cout<<" roll: "<<(roll_w1-roll_w1_old)<<" "<<roll_w1;
+                cout<<" roll: "<<roll_w1;
                 roll_w1_old = roll_w1;
                 cout<<endl;
             }
             if (pitch_w1 != pitch_w1_old){
                 cout<<"L";
-                cout<<" pitch: "<<(pitch_w1-pitch_w1_old)<<" "<<pitch_w1;
+                cout<<" pitch: "<<pitch_w1;
                 pitch_w1_old = pitch_w1;
                 cout<<endl;
             }
             if (yaw_w1 != yaw_w1_old){
                 cout<<"L";
-                cout<<" yaw: "<<(yaw_w1-yaw_w1_old)<<" "<<yaw_w1;
+                cout<<" yaw: "<<yaw_w1;
                 yaw_w1_old = yaw_w1;
                 cout<<endl;
             }
@@ -210,19 +210,19 @@ public:
         
             if (roll_w2 != roll_w2_old) {
                 cout<<"R";
-                cout<<" roll: "<<(roll_w2-roll_w2_old)<<" "<<roll_w2;
+                cout<<" roll: "<<roll_w2;
                 roll_w2_old = roll_w2;
                 cout<<endl;
             }
             if (pitch_w2 != pitch_w2_old){
                 cout<<"R";
-                cout<<" pitch: "<<(pitch_w2-pitch_w2_old)<<" "<<pitch_w2;
+                cout<<" pitch: "<<pitch_w2;
                 pitch_w2_old = pitch_w2;
                 cout<<endl;
             }
             if (yaw_w2 != yaw_w2_old){
                 cout<<"R";
-                cout<<" yaw: "<<(yaw_w2-yaw_w2_old)<<" "<<yaw_w2;
+                cout<<" yaw: "<<yaw_w2;
                 yaw_w2_old = yaw_w2;
                 cout<<endl;
             }
