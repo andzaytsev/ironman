@@ -15,6 +15,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "state.cpp"
 
 // Including Myo SDK
 #include <myo/myo.hpp>
@@ -271,6 +272,7 @@ public:
     myo::Pose currentPose;
     std::vector<myo::Myo*> knownMyos;
     std::string m1, m2, m1_old, m2_old;
+    State state;
     //std::ifstream output_file;
     
 };
@@ -306,6 +308,8 @@ int main(int argc, const char * argv[])
         // Hub::addListener() takes the address of any object whose class inherits from DeviceListener, and will cause
         // Hub::run() to send events to all registered device listeners.
         hub.addListener(&collector);
+
+	state = new State();
         
         
         //char buffer[100];
