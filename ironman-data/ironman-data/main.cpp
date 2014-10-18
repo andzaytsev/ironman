@@ -87,14 +87,10 @@ public:
             pitch_w2 = static_cast<int>((pitch + (float)M_PI/2.0f)/M_PI * 18);
             yaw_w2 = static_cast<int>((yaw + (float)M_PI)/(M_PI * 2.0f) * 18);
         }
-        if(roll_w1_o == roll_w1 || roll_w2_o == roll_w2 ||
-           pitch_w1_o == pitch_w1 || pitch_w2_o == pitch_w2 ||
-           yaw_w1_o == yaw_w1 || yaw_w2_o == yaw_w2){
-            return;
-        }
+
         
         //string str = std::to_string(roll_w) + " " + std::to_string(pitch_w) + " " + std::to_string(yaw_w);
-        print();
+        //print('o');
         
         
     }
@@ -130,7 +126,7 @@ public:
             //This is the right myo
             m2 = pose.toString();
         }
-        print();
+        //print('p');
         
     }
     
@@ -191,34 +187,59 @@ public:
          cout << identifyMyo(myo) << " " << roll_w << " " << pitch_w << " " << yaw_w << " ";
          
          */
-        cout<<"L";
-        if (roll_w1 != roll_w1_old) {
-            cout<<" roll: "<<(roll_w1-roll_w1_old);
-            roll_w1_old = roll_w1;
-        }
-        if (pitch_w1 != pitch_w1_old){
-            cout<<" pitch: "<<(pitch_w1-pitch_w1_old);
-            pitch_w1_old = pitch_w1;
-        }
-        if (yaw_w1 != yaw_w1_old){
-            cout<<" yaw: "<<(yaw_w1-yaw_w1_old);
-            yaw_w1_old = yaw_w1;
-        }
-        cout<<endl;
-        cout<<"R";
-        if (roll_w2 != roll_w2_old) {
-            cout<<" roll: "<<(roll_w2-roll_w2_old);
-            roll_w2_old = roll_w2;
-        }
-        if (pitch_w2 != pitch_w2_old){
-            cout<<" pitch: "<<(pitch_w2-pitch_w2_old);
-            pitch_w2_old = pitch_w2;
-        }
-        if (yaw_w2 != yaw_w2_old){
-            cout<<" yaw: "<<(yaw_w2-yaw_w2_old);
-            yaw_w2_old = yaw_w2;
-        }
-        cout<<endl;
+        //if(ch == 'o') {
+            if (roll_w1 != roll_w1_old) {
+                cout<<"L";
+                cout<<" roll: "<<(roll_w1-roll_w1_old);
+                roll_w1_old = roll_w1;
+                cout<<endl;
+            }
+            if (pitch_w1 != pitch_w1_old){
+                cout<<"L";
+                cout<<" pitch: "<<(pitch_w1-pitch_w1_old);
+                pitch_w1_old = pitch_w1;
+                cout<<endl;
+            }
+            if (yaw_w1 != yaw_w1_old){
+                cout<<"L";
+                cout<<" yaw: "<<(yaw_w1-yaw_w1_old);
+                yaw_w1_old = yaw_w1;
+                cout<<endl;
+            }
+        
+        
+            if (roll_w2 != roll_w2_old) {
+                cout<<"R";
+                cout<<" roll: "<<(roll_w2-roll_w2_old);
+                roll_w2_old = roll_w2;
+                cout<<endl;
+            }
+            if (pitch_w2 != pitch_w2_old){
+                cout<<"R";
+                cout<<" pitch: "<<(pitch_w2-pitch_w2_old);
+                pitch_w2_old = pitch_w2;
+                cout<<endl;
+            }
+            if (yaw_w2 != yaw_w2_old){
+                cout<<"R";
+                cout<<" yaw: "<<(yaw_w2-yaw_w2_old);
+                yaw_w2_old = yaw_w2;
+                cout<<endl;
+            }
+        //} else {
+            if(m1 != m1_old){
+                cout<<"L ";
+                cout<<m1;
+                m1_old = m1;
+                cout<<endl;
+            }
+            if(m2 != m2_old){
+                cout<<"R ";
+                cout<<m2;
+                m2_old = m2;
+                cout<<endl;
+            }
+        //}
 //        cout << "L\t" << roll_w1 << "\t" << pitch_w1 << "\t" << yaw_w1;
 //        cout << "\t" << m1;
 //        cout << "\tR\t" << roll_w2 << "\t" << pitch_w2 << "\t" << yaw_w2;
@@ -246,13 +267,10 @@ public:
 
     int roll_w1_old, pitch_w1_old, yaw_w1_old;
     int roll_w2_old, pitch_w2_old, yaw_w2_old;
-
-    int roll_w1_o, pitch_w1_o, yaw_w1_o;
-    int roll_w2_o, pitch_w2_o, yaw_w2_o;
     
     myo::Pose currentPose;
     std::vector<myo::Myo*> knownMyos;
-    std::string m1, m2;
+    std::string m1, m2, m1_old, m2_old;
     //std::ifstream output_file;
     
 };
@@ -300,7 +318,7 @@ int main(int argc, const char * argv[])
             hub.run(1000/20);
             // After processing events, we call the print() member function we defined above to print out the values we've
             // obtained from any events that have occurred.
-            //collector.print();
+            collector.print();
         }
         
         // If a standard exception occurred, we print out its message and exit.
