@@ -13,6 +13,8 @@
 #include <stdexcept>
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
 
 // Including Myo SDK
 #include <myo/myo.hpp>
@@ -85,9 +87,14 @@ public:
             pitch_w2 = static_cast<int>((pitch + (float)M_PI/2.0f)/M_PI * 18);
             yaw_w2 = static_cast<int>((yaw + (float)M_PI)/(M_PI * 2.0f) * 18);
         }
-
+        if(roll_w1_o == roll_w1 || roll_w2_o == roll_w2 ||
+           pitch_w1_o == pitch_w1 || pitch_w2_o == pitch_w2 ||
+           yaw_w1_o == yaw_w1 || yaw_w2_o == yaw_w2){
+            return;
+        }
         
         //string str = std::to_string(roll_w) + " " + std::to_string(pitch_w) + " " + std::to_string(yaw_w);
+        print();
         
         
     }
@@ -123,7 +130,7 @@ public:
             //This is the right myo
             m2 = pose.toString();
         }
-        //print(myo, pose.toString());
+        print();
         
     }
     
@@ -150,6 +157,21 @@ public:
         using std::endl;
         using std::string;
         using std::flush;
+        
+        
+        //string buffer;
+        //output_file.seekg(0, output_file.end);
+        //output_file.open("output");
+        //output_file << "L\t" << roll_w1 << "\t" << pitch_w1 << "\t" << yaw_w1;
+        //output_file << "\t" << m1;
+        //output_file << "\tR\t" << roll_w2 << "\t" << pitch_w2 << "\t" << yaw_w2;
+        //output_file << "\t" << m2<< "\n";
+        
+       // output_file = fopen("output.txt", "w");
+        //fseek(output_file, 0, SEEK_SET);
+        
+//        fputs(buffer , output_file);
+        //output_file;
         
         // Print out the orientation. Orientation data is always available, even if no arm is currently recognized.
         
@@ -221,11 +243,17 @@ public:
     // These values are set by onOrientationData() and onPose() above.
     int roll_w1, pitch_w1, yaw_w1;
     int roll_w2, pitch_w2, yaw_w2;
+
     int roll_w1_old, pitch_w1_old, yaw_w1_old;
     int roll_w2_old, pitch_w2_old, yaw_w2_old;
+
+    int roll_w1_o, pitch_w1_o, yaw_w1_o;
+    int roll_w2_o, pitch_w2_o, yaw_w2_o;
+    
     myo::Pose currentPose;
     std::vector<myo::Myo*> knownMyos;
     std::string m1, m2;
+    //std::ifstream output_file;
     
 };
 
@@ -261,6 +289,10 @@ int main(int argc, const char * argv[])
         // Hub::run() to send events to all registered device listeners.
         hub.addListener(&collector);
         
+        
+        //char buffer[100];
+        
+        
         // Finally we enter our main loop.
         while (1) {
             // In each iteration of our main loop, we run the Myo event loop for a set number of milliseconds.
@@ -268,7 +300,7 @@ int main(int argc, const char * argv[])
             hub.run(1000/20);
             // After processing events, we call the print() member function we defined above to print out the values we've
             // obtained from any events that have occurred.
-            collector.print();
+            //collector.print();
         }
         
         // If a standard exception occurred, we print out its message and exit.
