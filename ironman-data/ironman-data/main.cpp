@@ -93,13 +93,13 @@ public:
     // We define this function to print the current values that were updated by the on...() functions above.
     void print()
     {
-        // Clear the current line
-        std::cout << '\r';
+        using std::cout;
+        using std::endl;
+        using std::string;
+        using std::flush;
         
         // Print out the orientation. Orientation data is always available, even if no arm is currently recognized.
-        std::cout << '[' << std::string(roll_w, '*') << std::string(18 - roll_w, ' ') << ']'
-        << '[' << std::string(pitch_w, '*') << std::string(18 - pitch_w, ' ') << ']'
-        << '[' << std::string(yaw_w, '*') << std::string(18 - yaw_w, ' ') << ']';
+        cout << (whichArm == myo::armLeft ? "L " : "R ") << roll_w << " " << pitch_w << " " << yaw_w << " ";
         
         if (onArm) {
             // Print out the currently recognized pose and which arm Myo is being worn on.
@@ -107,16 +107,15 @@ public:
             // Pose::toString() provides the human-readable name of a pose. We can also output a Pose directly to an
             // output stream (e.g. std::cout << currentPose;). In this case we want to get the pose name's length so
             // that we can fill the rest of the field with spaces below, so we obtain it as a string using toString().
-            std::string poseString = currentPose.toString();
+            string poseString = currentPose.toString();
             
-            std::cout << '[' << (whichArm == myo::armLeft ? "L" : "R") << ']'
-            << '[' << poseString << std::string(14 - poseString.size(), ' ') << ']';
+            cout << poseString << endl;
         } else {
             // Print out a placeholder for the arm and pose when Myo doesn't currently know which arm it's on.
-            std::cout << "[?]" << '[' << std::string(14, ' ') << ']';
+            cout << "[?]" << endl;
         }
         
-        std::cout << std::flush;
+        cout << flush;
     }
     
     // These values are set by onArmRecognized() and onArmLost() above.
@@ -135,9 +134,9 @@ int main(int argc, const char * argv[])
         
         // First, we create a Hub with our application identifier. Be sure not to use the com.example namespace when
         // publishing your application. The Hub provides access to one or more Myos.
-        myo::Hub hub("com.example.hello-myo");
+        myo::Hub hub("com.aaad.ironman-data");
         
-        std::cout << "Attempting to find a Myo..." << std::endl;
+        std::cerr << "Attempting to find a Myo..." << std::endl;
         
         // Next, we attempt to find a Myo to use. If a Myo is already paired in Myo Connect, this will return that Myo
         // immediately.
@@ -151,7 +150,7 @@ int main(int argc, const char * argv[])
         }
         
         // We've found a Myo.
-        std::cout << "Connected to a Myo armband!" << std::endl << std::endl;
+        std::cerr << "Connected to a Myo armband!" << std::endl << std::endl;
         
         // Next we construct an instance of our DeviceListener, so that we can register it with the Hub.
         DataCollector collector;
