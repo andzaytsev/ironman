@@ -23,12 +23,11 @@
 
 class DataCollector : public myo::DeviceListener {
 public:
-    /*
     DataCollector()
-    : onArm(false), roll_w(0), pitch_w(0), yaw_w(0), currentPose()
+    : roll_w1(0), pitch_w1(0), yaw_w1(0), roll_w2(0), pitch_w2(0), yaw_w2(0)
     {
+	state = new State();
     }
-     */
     
     void onPair(myo::Myo* myo, uint64_t timestamp, myo::FirmwareVersion firmwareVersion){
         knownMyos.push_back(myo);
@@ -190,63 +189,62 @@ public:
          */
         //if(ch == 'o') {
             if (roll_w1 != roll_w1_old) {
-                cout<<"L";
-                cout<<" roll: "<<(roll_w1-roll_w1_old)<<" "<<roll_w1;
+                //cout<<"L";
+                //cout<<" roll: "<<(roll_w1-roll_w1_old)<<" "<<roll_w1;
                 roll_w1_old = roll_w1;
-                cout<<endl;
+                //cout<<endl;
             }
             if (pitch_w1 != pitch_w1_old){
-                cout<<"L";
-                cout<<" pitch: "<<(pitch_w1-pitch_w1_old)<<" "<<pitch_w1;
+                //cout<<"L";
+                //cout<<" pitch: "<<(pitch_w1-pitch_w1_old)<<" "<<pitch_w1;
                 pitch_w1_old = pitch_w1;
-                cout<<endl;
+                //cout<<endl;
             }
             if (yaw_w1 != yaw_w1_old){
-                cout<<"L";
-                cout<<" yaw: "<<(yaw_w1-yaw_w1_old)<<" "<<yaw_w1;
+                //cout<<"L";
+                //cout<<" yaw: "<<(yaw_w1-yaw_w1_old)<<" "<<yaw_w1;
                 yaw_w1_old = yaw_w1;
-                cout<<endl;
+                //cout<<endl;
             }
-        
         
             if (roll_w2 != roll_w2_old) {
-                cout<<"R";
-                cout<<" roll: "<<(roll_w2-roll_w2_old)<<" "<<roll_w2;
+                //cout<<"R";
+                //cout<<" roll: "<<(roll_w2-roll_w2_old)<<" "<<roll_w2;
                 roll_w2_old = roll_w2;
-                cout<<endl;
+                //cout<<endl;
             }
             if (pitch_w2 != pitch_w2_old){
-                cout<<"R";
-                cout<<" pitch: "<<(pitch_w2-pitch_w2_old)<<" "<<pitch_w2;
+                //cout<<"R";
+                //cout<<" pitch: "<<(pitch_w2-pitch_w2_old)<<" "<<pitch_w2;
                 pitch_w2_old = pitch_w2;
-                cout<<endl;
+                //cout<<endl;
             }
             if (yaw_w2 != yaw_w2_old){
-                cout<<"R";
-                cout<<" yaw: "<<(yaw_w2-yaw_w2_old)<<" "<<yaw_w2;
+                //cout<<"R";
+                //cout<<" yaw: "<<(yaw_w2-yaw_w2_old)<<" "<<yaw_w2;
                 yaw_w2_old = yaw_w2;
-                cout<<endl;
+                //cout<<endl;
             }
         //} else {
             if(m1 != m1_old){
-                cout<<"L ";
-                cout<<m1;
+                //cout<<"L ";
+                //cout<<m1;
                 m1_old = m1;
-                cout<<endl;
+                //cout<<endl;
             }
             if(m2 != m2_old){
-                cout<<"R ";
-                cout<<m2;
+                //cout<<"R ";
+                //cout<<m2;
                 m2_old = m2;
-                cout<<endl;
+                //cout<<endl;
             }
-        //}
-//        cout << "L\t" << roll_w1 << "\t" << pitch_w1 << "\t" << yaw_w1;
-//        cout << "\t" << m1;
-//        cout << "\tR\t" << roll_w2 << "\t" << pitch_w2 << "\t" << yaw_w2;
-//        cout << "\t" << m2 << endl;
         
         //cout << flush;
+	state->updateState((yaw_w2+yaw_w1)/2, (roll_w1+roll_w2)/2, (pitch_w1+pitch_w2)/2, m1, m2);
+	string st = state->getCurrentState();
+	//if(st!= -1){
+		cout << st << endl;
+	//}
     }
     
     char identifyMyo(myo::Myo * myo) {
@@ -272,7 +270,7 @@ public:
     myo::Pose currentPose;
     std::vector<myo::Myo*> knownMyos;
     std::string m1, m2, m1_old, m2_old;
-    State state;
+    State * state;
     //std::ifstream output_file;
     
 };
@@ -309,7 +307,6 @@ int main(int argc, const char * argv[])
         // Hub::run() to send events to all registered device listeners.
         hub.addListener(&collector);
 
-	//state = new State();
         
         
         //char buffer[100];
