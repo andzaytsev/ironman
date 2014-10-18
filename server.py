@@ -17,10 +17,7 @@ if __name__ == "__main__":
 	if os.fork() == 0:
 		old_stdout = sys.stdout
 		sys.stdout = os.fdopen(pipein, 'w')
-		os.system("./iman-data")
-		# while True:  try to use this
-		# 	time.sleep(5)
-		# 	print random.randint(0, 10)
-		# 	sys.stdout.flush()
+                os.dup2(sys.stdout.fileno(), 1)
+                os.execv("./iman-data", ["./iman-data"])
 	else:
 		app.run()
