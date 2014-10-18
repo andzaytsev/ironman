@@ -37,9 +37,9 @@ public:
     {
         // We've lost a Myo.
         // Let's clean up some leftover state.
-        roll_w = 0;
-        pitch_w = 0;
-        yaw_w = 0;
+        //roll_w = 0;
+        //pitch_w = 0;
+        //yaw_w = 0;
         //onArm = false;
     }
     
@@ -66,7 +66,6 @@ public:
         using std::sqrt;
         using std::max;
         using std::min;
-        using std::string;
         
         // Calculate Euler angles (roll, pitch, and yaw) from the unit quaternion.
         float roll = atan2(2.0f * (quat.w() * quat.x() + quat.y() * quat.z()),
@@ -76,12 +75,20 @@ public:
                           1.0f - 2.0f * (quat.y() * quat.y() + quat.z() * quat.z()));
         
         // Convert the floating point angles in radians to a scale from 0 to 18.
-        roll_w = static_cast<int>((roll + (float)M_PI)/(M_PI * 2.0f) * 18);
-        pitch_w = static_cast<int>((pitch + (float)M_PI/2.0f)/M_PI * 18);
-        yaw_w = static_cast<int>((yaw + (float)M_PI)/(M_PI * 2.0f) * 18);
+        if(identifyMyo(myo) == 'L') {
+            roll_w1 = static_cast<int>((roll + (float)M_PI)/(M_PI * 2.0f) * 18);
+            pitch_w1 = static_cast<int>((pitch + (float)M_PI/2.0f)/M_PI * 18);
+            yaw_w1 = static_cast<int>((yaw + (float)M_PI)/(M_PI * 2.0f) * 18);
+        } else {
+            //This is the right myo
+            roll_w2 = static_cast<int>((roll + (float)M_PI)/(M_PI * 2.0f) * 18);
+            pitch_w2 = static_cast<int>((pitch + (float)M_PI/2.0f)/M_PI * 18);
+            yaw_w2 = static_cast<int>((yaw + (float)M_PI)/(M_PI * 2.0f) * 18);
+        }
+
         
-        string str = std::to_string(roll_w) + " " + std::to_string(pitch_w) + " " + std::to_string(yaw_w);
-        print(myo, str);
+        //string str = std::to_string(roll_w) + " " + std::to_string(pitch_w) + " " + std::to_string(yaw_w);
+        
         
     }
     
@@ -111,9 +118,10 @@ public:
         //cout << (whichArm == myo::armLeft ? "L " : "R ") << roll_w << " " << pitch_w << " " << yaw_w << " ";
         //cout << flush;
         if(identifyMyo(myo) == 'L') {
-            
+            m1 = pose.toString();
         } else {
             //This is the right myo
+            m2 = pose.toString();
         }
         //print(myo, pose.toString());
         
@@ -136,7 +144,7 @@ public:
     // For this example, the functions overridden above are sufficient.
     
     // We define this function to print the current values that were updated by the on...() functions above.
-    void print(myo::Myo* myo, std::string str)
+    void print()
     {
         using std::cout;
         using std::endl;
@@ -147,11 +155,11 @@ public:
         
         //cout << "Myo " << identifyMyo(
         
-        /*
-        if (onArm) {
+        
+        //if (onArm) {
 
-            string poseString = currentPose.toString();
-            
+        string poseString = currentPose.toString();
+          /*
             cout << poseString << endl;
         } else {
             // Print out a placeholder for the arm and pose when Myo doesn't currently know which arm it's on.
@@ -159,9 +167,12 @@ public:
         }
          
          cout << identifyMyo(myo) << " " << roll_w << " " << pitch_w << " " << yaw_w << " ";
-         cout << pose.toString() << endl;
+         
          */
-        cout << identifyMyo(myo) << " " << str << endl;
+        cout << "L\t" << roll_w1 << "\t" << pitch_w1 << "\t" << yaw_w1;
+        cout << "\t" << m1;
+        cout << "\tR\t" << roll_w2 << "\t" << pitch_w2 << "\t" << yaw_w2;
+        cout << "\t" << m2 << endl;
         
         //cout << flush;
     }
@@ -180,10 +191,12 @@ public:
     //myo::Arm whichArm;
     
     // These values are set by onOrientationData() and onPose() above.
-    int roll_w, pitch_w, yaw_w;
+    int roll_w1, pitch_w1, yaw_w1;
+    int roll_w2, pitch_w2, yaw_w2;
     myo::Pose currentPose;
     std::vector<myo::Myo*> knownMyos;
-    string m1, m2;
+    std::string m1, m2;
+    
 };
 
 int main(int argc, const char * argv[])
@@ -225,7 +238,7 @@ int main(int argc, const char * argv[])
             hub.run(1000/20);
             // After processing events, we call the print() member function we defined above to print out the values we've
             // obtained from any events that have occurred.
-            //collector.print();
+            collector.print();
         }
         
         // If a standard exception occurred, we print out its message and exit.
