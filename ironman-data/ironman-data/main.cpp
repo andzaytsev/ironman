@@ -169,10 +169,38 @@ public:
          cout << identifyMyo(myo) << " " << roll_w << " " << pitch_w << " " << yaw_w << " ";
          
          */
-        cout << "L\t" << roll_w1 << "\t" << pitch_w1 << "\t" << yaw_w1;
-        cout << "\t" << m1;
-        cout << "\tR\t" << roll_w2 << "\t" << pitch_w2 << "\t" << yaw_w2;
-        cout << "\t" << m2 << endl;
+        cout<<"L";
+        if (roll_w1 != roll_w1_old) {
+            cout<<" roll: "<<(roll_w1-roll_w1_old);
+            roll_w1_old = roll_w1;
+        }
+        if (pitch_w1 != pitch_w1_old){
+            cout<<" pitch: "<<(pitch_w1-pitch_w1_old);
+            pitch_w1_old = pitch_w1;
+        }
+        if (yaw_w1 != yaw_w1_old){
+            cout<<" yaw: "<<(yaw_w1-yaw_w1_old);
+            yaw_w1_old = yaw_w1;
+        }
+        cout<<endl;
+        cout<<"R";
+        if (roll_w2 != roll_w2_old) {
+            cout<<" roll: "<<(roll_w2-roll_w2_old);
+            roll_w2_old = roll_w2;
+        }
+        if (pitch_w2 != pitch_w2_old){
+            cout<<" pitch: "<<(pitch_w2-pitch_w2_old);
+            pitch_w2_old = pitch_w2;
+        }
+        if (yaw_w2 != yaw_w2_old){
+            cout<<" yaw: "<<(yaw_w2-yaw_w2_old);
+            yaw_w2_old = yaw_w2;
+        }
+        cout<<endl;
+//        cout << "L\t" << roll_w1 << "\t" << pitch_w1 << "\t" << yaw_w1;
+//        cout << "\t" << m1;
+//        cout << "\tR\t" << roll_w2 << "\t" << pitch_w2 << "\t" << yaw_w2;
+//        cout << "\t" << m2 << endl;
         
         //cout << flush;
     }
@@ -193,6 +221,8 @@ public:
     // These values are set by onOrientationData() and onPose() above.
     int roll_w1, pitch_w1, yaw_w1;
     int roll_w2, pitch_w2, yaw_w2;
+    int roll_w1_old, pitch_w1_old, yaw_w1_old;
+    int roll_w2_old, pitch_w2_old, yaw_w2_old;
     myo::Pose currentPose;
     std::vector<myo::Myo*> knownMyos;
     std::string m1, m2;
