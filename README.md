@@ -9,7 +9,7 @@ This project was made in full at Boilermake 2014.
 
 Authors
 =======
-Andrey Zaytsev
-Dingcheng Yue
-Ace Nassri
-Artem Pavlichenko. 
++ Andrey Zaytsev
++ Artem Pavlichenko
++ Ace Nassri
++ Dingcheng Yue
