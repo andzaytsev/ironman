@@ -18,7 +18,7 @@ This project was started at the BoilerMake hackathon in Fall 2014.
 
 Authors
 =======
++ Ace Nassri
 + Andrey Zaytsev
 + Artem Pavlichenko
-+ Ace Nassri
 + Dingcheng Yue
