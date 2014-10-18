@@ -5,7 +5,8 @@ This project's goal is to emulate and virtualize the being of ironman; that is, 
 
 System Requirements
 ===================
-Currently Ironman work only on OS X with XCode Command Line Tools installed.
++ Currently Ironman work only on OS X with XCode Command Line Tools installed.
++ Requires the python microframework flask. Can be installed by running `pip install flask`.
 
 Building
 ========
