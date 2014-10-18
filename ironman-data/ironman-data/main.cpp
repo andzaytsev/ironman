@@ -309,7 +309,7 @@ int main(int argc, const char * argv[])
         // Hub::run() to send events to all registered device listeners.
         hub.addListener(&collector);
 
-	state = new State();
+	//state = new State();
         
         
         //char buffer[100];
