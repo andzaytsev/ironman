@@ -10,6 +10,8 @@ class State {
 		 */
 		int flyDir;
 
+		char fire;
+
 		void landToFly(int pitch, std::string p1, std::string p2);
 
 		void hoverToFly(int pitch, std::string p1, std::string p2);
@@ -28,6 +30,7 @@ class State {
 State::State() {
 	state = 'l';
 	flyDir = 0;
+	fire = 'n';
 }
 
 std::string State::getCurrentState()
@@ -48,6 +51,14 @@ std::string State::getCurrentState()
 	} else if(state == 'h') {
 		str = "hover";
 	}
+
+	if(fire != 'n') {
+		if(fire == 'b') str += " fire both";
+		else if(fire == 'l') str += " fire left";
+		else if(fire == 'r') str += " fire right";
+		fire = 'n';
+	}
+
 	return str;
 }	
 
@@ -69,6 +80,12 @@ void State::landToFly(int pitch, std::string p1, std::string p2)
 	if(pitch >= 15 && (p1 == "fingersSpread" || p1 == "waveOut" || p2 == "fingersSpread" || p2 == "waveOut")) {
 		state = 'f';
 		flyDir = 1;
+	} else if((p1 == "fingersSpread" || p2 == "waveOut") && (p2 == "fingersSpread" || p2 == "waveOut")){
+		fire = 'b';
+	} else if(p1 == "fingersSpread" || p1 == "waveOut"){
+		fire = 'l';
+	} else if(p2 == "fingersSpread" || p2 == "waveOut"){
+		fire = 'r';
 	}
 }
 
@@ -82,6 +99,12 @@ void State::hoverToFly(int pitch, std::string p1, std::string p2)
 		//we are going down
 		state = 'f';
 		flyDir = -1;
+	} else if((p1 == "fingersSpread" || p2 == "waveOut") && (p2 == "fingersSpread" || p2 == "waveOut")){
+		fire = 'b';
+	} else if(p1 == "fingersSpread" || p1 == "waveOut"){
+		fire = 'l';
+	} else if(p2 == "fingersSpread" || p2 == "waveOut"){
+		fire = 'r';
 	}
 }
 
@@ -89,7 +112,7 @@ void State::flyTo(int pitch, std::string p1, std::string p2)
 {
 	if(pitch >= 15 && (p1 == "fist" || p2 == "fist" || p1 == "rest" || p2 == "rest")) {
 		flyDir = -1;
-	} else if((pitch<=15 &&  pitch>=7) && (p1 == "fingersSpread" || p2 == "fingersSpread" || p1 == "waveOut" || p2 == "waveOut")){
+	} else if((pitch<15 &&  pitch>=7) && (p1 == "fingersSpread" || p2 == "fingersSpread" || p1 == "waveOut" || p2 == "waveOut")){
 		state = 'h';
 		flyDir = 0;
 	} else if(pitch >= 15 && (p1 == "fingersSpread" || p2 == "fingersSpread" || p1 == "waveOut" || p2 == "waveOut")) {
