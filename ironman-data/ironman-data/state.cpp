@@ -10,13 +10,15 @@ class State {
 		 */
 		int flyDir;
 
+		char fb;
+
 		char fire;
 
 		void landToFly(int pitch, std::string p1, std::string p2);
 
 		void hoverToFly(int pitch, std::string p1, std::string p2);
 
-		void flyTo(int pitch, std::string p1, std::string p2);
+		void flyTo(int yaw1, int yaw2, int pitch, std::string p1, std::string p2);
 
 	public :
 		State();
@@ -31,6 +33,7 @@ State::State() {
 	state = 'l';
 	flyDir = 0;
 	fire = 'n';
+	fb = 0;
 }
 
 std::string State::getCurrentState()
@@ -52,6 +55,17 @@ std::string State::getCurrentState()
 			//str += "Down";
 			str += "d";
 		}
+
+		if(fb == 'f') {
+			//forward
+			str += "f";
+		} else if(fb == 'b') {
+			str += "b";
+		} else if(fb == 'l') {
+			str += "l";
+		} else if(fb == 'r') {
+			str += "r";
+		}
 	} else if(state == 'h') {
 		//str = "hover";
 		str = "h";
@@ -70,7 +84,7 @@ std::string State::getCurrentState()
 	return str;
 }	
 
-void State::updateState(int yaw, int roll, int pitch, std::string p1, std::string p2)
+void State::updateState(int yaw1, int yaw2, int pitch, std::string p1, std::string p2)
 {
 	using std::string;
 
@@ -79,7 +93,7 @@ void State::updateState(int yaw, int roll, int pitch, std::string p1, std::strin
 	} else if(state == 'h') {
 		hoverToFly(pitch, p1, p2);
 	} else {
-		flyTo(pitch, p1, p2);
+		flyTo(yaw1, yaw2, pitch, p1, p2);
 	}
 }
 
@@ -116,14 +130,22 @@ void State::hoverToFly(int pitch, std::string p1, std::string p2)
 	}
 }
 
-void State::flyTo(int pitch, std::string p1, std::string p2)
+void State::flyTo(int yaw1, int yaw2, int pitch, std::string p1, std::string p2)
 {
 	if(pitch >= 15 && (p1 == "fist" || p2 == "fist" || p1 == "rest" || p2 == "rest")) {
 		flyDir = -1;
-	} else if((pitch<15 &&  pitch>=7) && (p1 == "fingersSpread" || p2 == "fingersSpread" || p1 == "waveOut" || p2 == "waveOut")){
+	} else if((pitch<9 &&  pitch>=7) && (p1 == "fingersSpread" || p2 == "fingersSpread" || p1 == "waveOut" || p2 == "waveOut")){
 		state = 'h';
 		flyDir = 0;
 	} else if(pitch >= 15 && (p1 == "fingersSpread" || p2 == "fingersSpread" || p1 == "waveOut" || p2 == "waveOut")) {
 		flyDir = 1;
+	} else if((pitch < 15 && pitch >=9) && (yaw1 < 10 && yaw2 < 10) && (p1 == "fingersSpread" || p2 == "fingersSpread" || p1 == "waveOut" || p2 == "waveOut")) {
+		fb = 'f';
+	} else if((pitch < 15 && pitch >=9) && (yaw1 >= 10 && yaw2 >= 10) && (p1 == "fingersSpread" || p2 == "fingersSpread" || p1 == "waveOut" || p2 == "waveOut")) {
+		fb = 'b';
+	} else if((pitch < 15 && pitch >=9) && (yaw1 < 10 && yaw2 >= 10) && (p1 == "fingersSpread" || p2 == "fingersSpread" || p1 == "waveOut" || p2 == "waveOut")) {
+		fb = 'l';
+	} else if((pitch < 15 && pitch >=9) && (yaw1 >= 10 && yaw2 < 10) && (p1 == "fingersSpread" || p2 == "fingersSpread" || p1 == "waveOut" || p2 == "waveOut")) {
+		fb = 'r';
 	}
 }

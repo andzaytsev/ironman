@@ -189,7 +189,7 @@ public:
          cout << "R " << roll_w2 << " " << pitch_w2 << " " << yaw_w2 << " " << m2 << " ";
 
         //cout << flush;
-	state->updateState((yaw_w2+yaw_w1)/2, (roll_w1+roll_w2)/2, (pitch_w1+pitch_w2)/2, m1, m2);
+	state->updateState(yaw_w1, yaw_w2, (pitch_w1+pitch_w2)/2, m1, m2);
 	string st = state->getCurrentState();
 	cout << st << endl;
     }
