@@ -78,14 +78,14 @@ public:
         
         // Convert the floating point angles in radians to a scale from 0 to 18.
         if(identifyMyo(myo) == 'L') {
-            roll_w1 = static_cast<int>((roll + (float)M_PI)/(M_PI * 2.0f) * 18);
-            pitch_w1 = static_cast<int>((pitch + (float)M_PI/2.0f)/M_PI * 18);
-            yaw_w1 = static_cast<int>((yaw + (float)M_PI)/(M_PI * 2.0f) * 18);
+            roll_w1 = ((roll + (float)M_PI)/(M_PI * 2.0f) * 18);
+            pitch_w1 =((pitch + (float)M_PI/2.0f)/M_PI * 18);
+            yaw_w1 = ((yaw + (float)M_PI)/(M_PI * 2.0f) * 18);
         } else {
             //This is the right myo
-            roll_w2 = static_cast<int>((roll + (float)M_PI)/(M_PI * 2.0f) * 18);
-            pitch_w2 = static_cast<int>((pitch + (float)M_PI/2.0f)/M_PI * 18);
-            yaw_w2 = static_cast<int>((yaw + (float)M_PI)/(M_PI * 2.0f) * 18);
+            roll_w2 = ((roll + (float)M_PI)/(M_PI * 2.0f) * 18);
+            pitch_w2 =((pitch + (float)M_PI/2.0f)/M_PI * 18);
+            yaw_w2 = ((yaw + (float)M_PI)/(M_PI * 2.0f) * 18);
         }
 
         
@@ -184,62 +184,10 @@ public:
             cout << "[?]" << endl;
         }
          
-         cout << identifyMyo(myo) << " " << roll_w << " " << pitch_w << " " << yaw_w << " ";
-         
-         */
-        //if(ch == 'o') {
-            if (roll_w1 != roll_w1_old) {
-        //      cout<<"L";
-        //      cout<<" roll: "<<roll_w1;
-                roll_w1_old = roll_w1;
-                //cout<<endl;
-            }
-            if (pitch_w1 != pitch_w1_old){
-        //        cout<<"L";
-        //        cout<<" pitch: "<<pitch_w1;
-                pitch_w1_old = pitch_w1;
-                //cout<<endl;
-            }
-            if (yaw_w1 != yaw_w1_old){
-        //        cout<<"L";
-        //        cout<<" yaw: "<<yaw_w1;
-                yaw_w1_old = yaw_w1;
-                //cout<<endl;
-            }
-        
-            if (roll_w2 != roll_w2_old) {
-        //        cout<<"R";
-        //        cout<<" roll: "<<roll_w2;
-                roll_w2_old = roll_w2;
-                //cout<<endl;
-            }
-            if (pitch_w2 != pitch_w2_old){
-        //        cout<<"R";
-        //        cout<<" pitch: "<<pitch_w2;
+    */    
+         cout << "L " << roll_w1 << " " << pitch_w1 << " " << yaw_w1 << " " << m1 << " ";
+         cout << "R " << roll_w2 << " " << pitch_w2 << " " << yaw_w2 << " " << m2 << " ";
 
-                pitch_w2_old = pitch_w2;
-                //cout<<endl;
-            }
-            if (yaw_w2 != yaw_w2_old){
-        //        cout<<"R";
-        //        cout<<" yaw: "<<yaw_w2;
-                yaw_w2_old = yaw_w2;
-                //cout<<endl;
-            }
-        //} else {
-            if(m1 != m1_old){
-//                cout<<"L ";
-//                cout<<m1;
-                m1_old = m1;
-//                cout<<endl;
-            }
-            if(m2 != m2_old){
-//                cout<<"R ";
-//                cout<<m2;
-                m2_old = m2;
-//                cout<<endl;
-            }
-        
         //cout << flush;
 	state->updateState((yaw_w2+yaw_w1)/2, (roll_w1+roll_w2)/2, (pitch_w1+pitch_w2)/2, m1, m2);
 	string st = state->getCurrentState();
@@ -260,15 +208,12 @@ public:
     //myo::Arm whichArm;
     
     // These values are set by onOrientationData() and onPose() above.
-    int roll_w1, pitch_w1, yaw_w1;
-    int roll_w2, pitch_w2, yaw_w2;
+    float roll_w1, pitch_w1, yaw_w1;
+    float roll_w2, pitch_w2, yaw_w2;
 
-    int roll_w1_old, pitch_w1_old, yaw_w1_old;
-    int roll_w2_old, pitch_w2_old, yaw_w2_old;
-    
     myo::Pose currentPose;
     std::vector<myo::Myo*> knownMyos;
-    std::string m1, m2, m1_old, m2_old;
+    std::string m1, m2;
     State * state;
     //std::ifstream output_file;
     

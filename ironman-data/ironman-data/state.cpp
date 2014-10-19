@@ -39,23 +39,31 @@ std::string State::getCurrentState()
 
 	string str;
 	if(state == 'l'){
-		str = "land";
+		//str = "land";
+		str = "l";
 	} else if(state == 'f') {
-		str = "fly";
+		//str = "fly";
+		str = "f";
 
 		if(flyDir == 1) {
-			str += " up";
+			//str += "Up";
+			str += "u";
 		} else if(flyDir == -1){
-			str += " down";
+			//str += "Down";
+			str += "d";
 		}
 	} else if(state == 'h') {
-		str = "hover";
+		//str = "hover";
+		str = "h";
 	}
 
 	if(fire != 'n') {
-		if(fire == 'b') str += " fire both";
-		else if(fire == 'l') str += " fire left";
-		else if(fire == 'r') str += " fire right";
+		//if(fire == 'b') str += " fireBoth";
+		if(fire == 'b') str += " fb";
+		//else if(fire == 'l') str += " fireLeft";
+		else if(fire == 'l') str += " fl";
+		//else if(fire == 'r') str += " fireRight";
+		else if(fire == 'r') str += " fr";
 		fire = 'n';
 	}
 
