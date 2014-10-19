@@ -189,63 +189,61 @@ public:
          */
         //if(ch == 'o') {
             if (roll_w1 != roll_w1_old) {
-                cout<<"L";
-                cout<<" roll: "<<roll_w1;
+        //      cout<<"L";
+        //      cout<<" roll: "<<roll_w1;
                 roll_w1_old = roll_w1;
                 //cout<<endl;
             }
             if (pitch_w1 != pitch_w1_old){
-                cout<<"L";
-                cout<<" pitch: "<<pitch_w1;
+        //        cout<<"L";
+        //        cout<<" pitch: "<<pitch_w1;
                 pitch_w1_old = pitch_w1;
                 //cout<<endl;
             }
             if (yaw_w1 != yaw_w1_old){
-                cout<<"L";
-                cout<<" yaw: "<<yaw_w1;
+        //        cout<<"L";
+        //        cout<<" yaw: "<<yaw_w1;
                 yaw_w1_old = yaw_w1;
                 //cout<<endl;
             }
         
             if (roll_w2 != roll_w2_old) {
-                cout<<"R";
-                cout<<" roll: "<<roll_w2;
+        //        cout<<"R";
+        //        cout<<" roll: "<<roll_w2;
                 roll_w2_old = roll_w2;
                 //cout<<endl;
             }
             if (pitch_w2 != pitch_w2_old){
-                cout<<"R";
-                cout<<" pitch: "<<pitch_w2;
+        //        cout<<"R";
+        //        cout<<" pitch: "<<pitch_w2;
 
                 pitch_w2_old = pitch_w2;
                 //cout<<endl;
             }
             if (yaw_w2 != yaw_w2_old){
-                cout<<"R";
-                cout<<" yaw: "<<yaw_w2;
+        //        cout<<"R";
+        //        cout<<" yaw: "<<yaw_w2;
                 yaw_w2_old = yaw_w2;
                 //cout<<endl;
             }
         //} else {
             if(m1 != m1_old){
-                //cout<<"L ";
-                //cout<<m1;
+//                cout<<"L ";
+//                cout<<m1;
                 m1_old = m1;
-                //cout<<endl;
+//                cout<<endl;
             }
             if(m2 != m2_old){
-                //cout<<"R ";
-                //cout<<m2;
+//                cout<<"R ";
+//                cout<<m2;
                 m2_old = m2;
-                //cout<<endl;
+//                cout<<endl;
             }
         
         //cout << flush;
 	state->updateState((yaw_w2+yaw_w1)/2, (roll_w1+roll_w2)/2, (pitch_w1+pitch_w2)/2, m1, m2);
 	string st = state->getCurrentState();
-	//if(st!= -1){
-		cout << st << endl;
-	//}
+	cout << st << endl;
     }
     
     char identifyMyo(myo::Myo * myo) {
